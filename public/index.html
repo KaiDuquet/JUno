@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>JUno - JavaScript card game</title>
+        <link rel="stylesheet" href="styles/main.css">
+    </head>
+    <body>
+        <div class="chat-wrapper">
+            <ul id="messages"></ul>
+            <div class="form-wrapper">
+                <form id="chat-form">
+                    <input id="chat-input" autocomplete="off" title="chat" />
+                    <button id="send-button">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="src/client.js"></script>
+    </body>
+</html>

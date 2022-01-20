@@ -1,3 +1,4 @@
+const { text } = require('express');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -10,7 +11,7 @@ const io = new Server(server);
 app.use(express.static(`${__dirname}/../public`));
 
 io.on('connection', (socket) => {
-    socket.emit('message', 'You are connected');
+    // socket.emit('message', 'You are connected');
 
     socket.on('message', (text) => io.emit('message', text));
 });

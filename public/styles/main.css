@@ -1,7 +1,17 @@
-body {
-    font-family: "Helvetica Neue", sans-serif;
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap'); 
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+  } 
+
+body { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  overflow: hidden; 
 }
 
 input {
@@ -33,31 +43,58 @@ button.turn:hover {
 }
 
 ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid lightgray;
-    overflow-y: scroll;
-}
+  position: relative; 
+} 
 
-li {
-    padding: 10px 10px 5px 10px;
-}
+ul li { 
+  list-style: none; 
+  text-align: center; 
+} 
+
+ul li a { 
+  color: #333; 
+  text-decoration: none; 
+  font-size: 3em; 
+  padding: 5px 20px; 
+  display: inline-flex; 
+  font-weight: 700; 
+  transition: 0.5s; 
+} 
+
+ul:hover li a { 
+  color: #0002; 
+} 
+
+ul li:hover a { 
+  color: #000; 
+  background: rgb(211, 211, 211); 
+} 
+
+
 
 canvas {
     display: block;
     margin: 10px auto;
 }
 
+.main-title{
+  font-size: 100px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
 .chat-wrapper {
+    position: absolute;
+    width: 400px;
+    bottom: 10px;
+    left: 10px;
     background-color: white;
-    width: 500px;
-    margin: 20px 100px auto;
-    border: 1px solid lightgray
+    border: 1px solid rgb(0, 0, 0);
 }
 
 .form-wrapper {
-    padding: 10px;
+    padding-bottom: 5px;
 }
 
 .form-wrapper form {
@@ -66,9 +103,8 @@ canvas {
 
 .form-wrapper form input {
     font-size: 1.0rem;
-    margin: 0 10px 0 0;
-    padding: 0 5px;
     flex-grow: 1;
+    border: 0px;
 }
 
 .form-wrapper form button {
@@ -77,4 +113,10 @@ canvas {
 
 #messages {
     height: 200px;
+}
+
+ul.messages li{
+    color: rgb(0, 0, 0);
+    text-align: left;
+    padding-left: 5px;
 }

@@ -5,15 +5,26 @@
         <link rel="stylesheet" href="styles/main.css">
     </head>
     <body>
-        <div class="chat-wrapper">
-            <ul id="messages"></ul>
-            <div class="form-wrapper">
-                <form id="chat-form">
-                    <input id="chat-input" autocomplete="off" title="chat" />
-                    <button id="send-button">Send</button>
-                </form>
+        <section id="main-menu">
+            <h1 class="main-title">JUNO</h1>
+            <ul>         
+                <li><a href="play.html" data-text="Play">PLAY</a></li>         
+                <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>         
+                <li><a href="settings.html" data-text="Settings">SETTINGS</a> </li>            
+            </ul>
+        </section>
+
+        <section id="chat-box">
+            <div class="chat-wrapper">
+                <ul class="messages" id="messages"></ul>
+                <div class="form-wrapper">
+                    <form id="chat-form">
+                        <input id="chat-input" autocomplete="off" title="chat" placeholder="Type Message..." />
+                        <button id="send-button">Send</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </section>
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="src/client.js"></script>

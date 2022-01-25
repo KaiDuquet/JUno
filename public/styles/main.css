@@ -62,15 +62,13 @@ ul li a {
 } 
 
 ul:hover li a { 
-  color: #0002; 
+  color: #8a8a8ad0; 
 } 
 
 ul li:hover a { 
-  color: #000; 
-  background: rgb(211, 211, 211); 
+  color: rgb(255, 255, 255); 
+  background: rgb(0, 0, 0); 
 } 
-
-
 
 canvas {
     display: block;
@@ -82,6 +80,65 @@ canvas {
   font-family: 'Poppins', sans-serif;
   text-align: center;
   padding-bottom: 50px;
+}
+
+.dark{
+  background-color: #222;
+  color: #e6e6e6;
+}
+
+.dark ul li a{
+  color: #e6e6e6;
+}
+
+.dark ul li:hover a { 
+  color: #000000; 
+  background: rgb(231, 231, 231); 
+}
+
+.dark .ul:hover li a{
+  color: gray;
+}
+
+ul:hover li a { 
+  color: #8a8a8ad0; 
+} 
+
+ul li:hover a { 
+  color: rgb(255, 255, 255); 
+  background: rgb(0, 0, 0); 
+} 
+
+.mode-button{
+  position: absolute;
+  top: 8px;
+  right: 13px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  background-color: #000;
+  border-radius: 15px;
+  width: 120px;  
+}
+
+.mode-button::before{
+  content: "Dark";
+}
+
+.light-button{
+  position: absolute;
+  top: 8px;
+  right: 13px;
+  font-size: 18px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  width: 120px; 
+}
+
+.light-button::before{
+  content: "Light";
 }
 
 .chat-wrapper {

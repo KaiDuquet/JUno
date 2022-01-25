@@ -3,14 +3,30 @@
     <head>
         <title>JUno - JavaScript card game</title>
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/card.css">
     </head>
     <body>
+        <section id="dark-mode">
+            <div id="mode-button" onclick="darkMode()" class="mode-button"></div>
+         
+            <script>
+                function darkMode() {
+                var main = document.getElementById("main-menu");
+                var body = document.body;
+                var dark = document.getElementById("mode-button");
+                main.classList.toggle("dark");
+                body.classList.toggle("dark");
+                dark.classList.toggle("light-button");
+                }
+            </script>
+        </section>
+        
         <section id="main-menu">
             <h1 class="main-title">JUNO</h1>
             <ul>         
                 <li><a href="play.html" data-text="Play">PLAY</a></li>         
-                <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>         
-                <li><a href="settings.html" data-text="Settings">SETTINGS</a> </li>            
+                <li><a href="settings.html" data-text="Settings">SETTINGS</a> </li>
+                <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>              
             </ul>
         </section>
 
@@ -26,7 +42,17 @@
             </div>
         </section>
 
+        
+
+        <section id="card-display">
+            <div class="card">
+                <div class="text-top">+4</div>
+                <div class="text-middle">+4</div>
+            </div>
+        </section>
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="src/client.js"></script>
+
     </body>
 </html>

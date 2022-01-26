@@ -4,39 +4,32 @@
         <title>JUNO</title>
         <link rel="icon" href="favicon.png">
         <link rel="stylesheet" href="styles/main.css">
-        <script src="index.js"></script>
     </head>
     <body>
-        <section id="dark-mode">
-            <div id="mode-button" onclick="darkMode()" class="mode-button"></div>
-         
-            <script>
-                function darkMode() {
-                    const main = document.getElementById("main-menu");
-                    const body = document.body;
-                    const dark = document.getElementById("mode-button");
-                    main.classList.toggle("dark");
-                    body.classList.toggle("dark");
-                    dark.classList.toggle("light-button");
-                }
-            </script>
-        </section>
-        
+
         <section id="main-menu">
             <h1 id="maintitle" class="main-title">JUNO</h1>
             <div style="text-align: center;">
                 <img src="background.png" height="250" width="270">
             </div>
             <ul>
-                <li><button id="play-button">PLAY</button></li>
-                <!-- <button></button> -->
-                <li><a href="play.html" data-text="Play">PLAY</a></li>         
-                <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>              
+                <li><button class="menu-button" id="play-button">PLAY</button></li>
+                <li><button class="menu-button" id="tutorial-button">HOW TO PLAY</button></li>           
             </ul>
         </section>
 
-        <div id="room-form" style="display: none;">
-            <h1>Hello world</h1>
+        <div class="room-form-container" style="display: none;">
+            <button class="standalone-button" id="back-button">RETURN</button>
+            <form action="" class="room-form" method="get">
+                <button class="standalone-button" id="create-button">Create a room</button>
+                <h2>or</h2>
+                <div class="room-code-container">
+                    <h1>Join an existing room</h1>
+                    <input type="text" id="room-code" name="room-code" placeholder="Room Code">
+                </div>
+            </form>
         </div>
+
+        <script src="index.js"></script>
     </body>
 </html>

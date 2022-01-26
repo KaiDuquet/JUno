@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JUno</title>
+        <title>JUNO</title>
         <link rel="icon" href="favicon.png">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/card.css">
+        <script src="index.js"></script>
     </head>
     <body>
         <section id="dark-mode">
@@ -12,12 +12,12 @@
          
             <script>
                 function darkMode() {
-                var main = document.getElementById("maintitle");
-                var body = document.body;
-                var dark = document.getElementById("mode-button");
-                main.classList.toggle("light");
-                body.classList.toggle("light");
-                dark.classList.toggle("dark-button");
+                    const main = document.getElementById("main-menu");
+                    const body = document.body;
+                    const dark = document.getElementById("mode-button");
+                    main.classList.toggle("dark");
+                    body.classList.toggle("dark");
+                    dark.classList.toggle("light-button");
                 }
             </script>
         </section>
@@ -27,26 +27,16 @@
             <div style="text-align: center;">
                 <img src="background.png" height="250" width="270">
             </div>
-            <ul>         
+            <ul>
+                <li><button id="play-button">PLAY</button></li>
+                <!-- <button></button> -->
                 <li><a href="play.html" data-text="Play">PLAY</a></li>         
                 <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>              
             </ul>
         </section>
 
-        <!-- <section id="chat-box">
-            <div class="chat-wrapper">
-                <ul class="messages" id="messages"></ul>
-                <div class="form-wrapper">
-                    <form id="chat-form">
-                        <input id="chat-input" autocomplete="off" title="chat" placeholder="Type Message..." />
-                        <button id="send-button">Send</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="src/client.js"></script> -->
-
+        <div id="room-form" style="display: none;">
+            <h1>Hello world</h1>
+        </div>
     </body>
 </html>

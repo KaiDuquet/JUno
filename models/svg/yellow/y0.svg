@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1376" height="1532" viewBox="0 0 1376 1532">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-width: 1px;
+        filter: url(#filter);
+      }
+
+      .cls-2, .cls-3 {
+        font-size: 300px;
+      }
+
+      .cls-2 {
+        filter: url(#filter-2);
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        text-anchor: middle;
+      }
+
+      .cls-3, .cls-5 {
+        fill: #fff;
+        font-family: Poppins;
+        font-weight: 700;
+      }
+
+      .cls-4, .cls-5 {
+        font-size: 129.167px;
+      }
+
+      .cls-4 {
+        opacity: 0.99;
+        filter: url(#filter-3);
+      }
+    </style>
+    <filter id="filter" x="395" y="334" width="592" height="866" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="395" y="334" width="592" height="866" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTkyIiBoZWlnaHQ9Ijg2NiIgdmlld0JveD0iMCAwIDU5MiA4NjYiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6IHVybCgjcmFkaWFsLWdyYWRpZW50KTsKICAgICAgfQogICAgPC9zdHlsZT4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0icmFkaWFsLWdyYWRpZW50IiBjeD0iMjk2IiBjeT0iNDMzIiByPSI0MzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjFlZTIwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ViZjgyZiIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNTkyIiBoZWlnaHQ9Ijg2NiIvPgo8L3N2Zz4K"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-2" x="602" y="646" width="179" height="233" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dy="1" in="SourceAlpha"/>
+      <feGaussianBlur result="blur" stdDeviation="2.236"/>
+      <feFlood result="flood" flood-color="#000003" flood-opacity="0.4"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+    </filter>
+    <filter id="filter-3" x="191" y="132" width="573" height="596" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" in="SourceAlpha"/>
+      <feGaussianBlur result="blur" stdDeviation="15.811"/>
+      <feFlood result="flood" flood-color="#fff"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+    </filter>
+    <path id="text-path"/>
+  </defs>
+  <g style="fill: ; filter: url(#filter)">
+    <rect id="Yellow" class="cls-1" x="395" y="334" width="592" height="866" rx="46" ry="46" style="stroke: inherit; filter: none; fill: inherit"/>
+  </g>
+  <use xlink:href="#Yellow" style="stroke: #000; filter: none; fill: none"/>
+  <text id="Middle" class="cls-2"><textPath startOffset="50%" xlink:href="#text-path"><tspan class="cls-3" x="0">0</tspan></textPath></text>
+  <text id="Top" class="cls-4"><textPath startOffset="50%" xlink:href="#text-path"><tspan class="cls-5" x="0">0</tspan></textPath></text>
+</svg>

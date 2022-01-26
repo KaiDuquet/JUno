@@ -1,28 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap'); 
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+  } 
+
+body { 
+  display: flex; 
+  min-height: 100vh; 
+  overflow: hidden; 
+}
+
+/* .card{
+  width: 225px;
+  height: 330px;
+  line-height: 320px;
+  background-image: radial-gradient(
+    ellipse , #000000, #1f1b1b
+  );
+  border-radius: 15px;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+} 
+*/
+
+.container {
+  position: absolute;
+  height: 300px;
+  width: 900px;
+  top: 60px;
+  left: calc(50% - 450px);
+  display: flex;
+}
+
+.card {
+  display: flex;
+  height: 330px;
+  width: 220px;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: -0.25rem 0 0.5rem rgb(73, 73, 73);
+  transition: 0.4s ease-out;
+  position: relative;
+  left: 0px;
+}
+
+.card:not(:first-child) {
+    margin-left: -50px;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+}
+
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
 
 .text-top{
   position: fixed;
   line-height: 0;
-  margin-top: 2.5vh;
-  margin-left: 1.5vh;
-  font-size: 2vh;
+  margin-top: 4vh;
+  margin-left: 2vh;
+  font-size: 4vh;
   color: #fff;
-}
-.text-middle {
-  text-align: center;
-  position: relative;
-  font-size: 10vh;
-  color: #fff;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.card{
-  width: 225px;
-  height: 330px;
-  line-height: 320px;
-  margin: 0 auto;
+.text-middle {
+  font-size: 11vh;
+  margin: auto;
+  color: #fff;
+  text-shadow: 0 2px 5px #00000033;
+}
+
+#black{
   background-image: radial-gradient(
-    ellipse , rgb(241, 238, 32), #ebf82f 
+    ellipse , #000000, #1f1b1b
   );
   border-radius: 15px;
-  /* box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5); */
+}
+
+#red{
+  background-image: radial-gradient(
+    ellipse , #c92121, #dd4848
+  );
+  border-radius: 15px;
+}
+
+#blue{
+  background-image: radial-gradient(
+    ellipse ,  #208deb, #3a8aeb
+  );
+  border-radius: 15px;
+}
+
+#green{
+  background-image: radial-gradient(
+    ellipse , #2EB62C, #83D475
+  );
+  border-radius: 15px;
+}
+
+#yellow{
+  background-image: radial-gradient(
+    ellipse , #f1ee20, #ebf82f 
+  );
+  border-radius: 15px;
 }

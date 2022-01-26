@@ -1,31 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JUno - JavaScript card game</title>
-        <link rel="stylesheet" href="styles/card.css">
+        <title>JUNO</title>
+        <link rel="icon" href="favicon.png">
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="https://pixijs.download/release/pixi.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="card" id="blue">
-                <h3 class="text-top">7</h3>
-                <h3 class="text-middle">7</h3>
-            </div>
-            <div class="card" id="red">
-              <h3 class="text-top">7</h3>
-              <h3 class="text-middle">7</h3>
-            </div>
-            <div class="card" id="green">
-              <h3 class="text-top">7</h3>
-              <h3 class="text-middle">7</h3>
-            </div>
-            <div class="card" id="yellow">
-              <h3 class="text-top">7</h3>
-              <h3 class="text-middle">7</h3>
-            </div>
-            <div class="card" id="black">
-                <h3 class="text-top">+4</h3>
-                <h3 class="text-middle">+4</h3>
-            </div>
-        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="module" src="client.js"></script>
     </body>
 </html>

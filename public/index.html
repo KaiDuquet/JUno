@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JUno - JavaScript card game</title>
+        <title>JUNO</title>
         <link rel="icon" href="favicon.png">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/card.css">
     </head>
     <body>
         <section id="dark-mode">
@@ -12,39 +11,23 @@
          
             <script>
                 function darkMode() {
-                var main = document.getElementById("main-menu");
-                var body = document.body;
-                var dark = document.getElementById("mode-button");
-                main.classList.toggle("dark");
-                body.classList.toggle("dark");
-                dark.classList.toggle("light-button");
+                    const main = document.getElementById("main-menu");
+                    const body = document.body;
+                    const dark = document.getElementById("mode-button");
+                    main.classList.toggle("dark");
+                    body.classList.toggle("dark");
+                    dark.classList.toggle("light-button");
                 }
             </script>
         </section>
         
         <section id="main-menu">
             <h1 class="main-title">JUNO</h1>
-            <ul>         
+            <ul>
                 <li><a href="play.html" data-text="Play">PLAY</a></li>         
-                <li><a href="settings.html" data-text="Settings">SETTINGS</a> </li>
-                <li><a href="how-to-play.html" data-text="How-to-Play">HOW TO PLAY</a></li>              
+                <li><a href="howtoplay.html" data-text="How To Play">HOW TO PLAY</a> </li>          
             </ul>
         </section>
-
-        <section id="chat-box">
-            <div class="chat-wrapper">
-                <ul class="messages" id="messages"></ul>
-                <div class="form-wrapper">
-                    <form id="chat-form">
-                        <input id="chat-input" autocomplete="off" title="chat" placeholder="Type Message..." />
-                        <button id="send-button">Send</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="src/client.js"></script>
 
     </body>
 </html>

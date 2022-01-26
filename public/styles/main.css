@@ -21,25 +21,20 @@ input {
 }
 
 button {
-    background-color: #20af41;
-    color: white;
+    background-color: white;
+    color: rgb(58, 58, 58); 
+    text-decoration: none;
     border: none;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
-
-    font-size: 0.8rem;
-    line-height: 25px;
-    cursor: pointer;
-    outline: none;
-    transition: all 150ms ease-in;
+    font-size: 3em; 
+    padding: 5px 20px; 
+    display: inline-flex; 
+    font-weight: 700; 
+    transition: 0.5s; 
 }
 
 button:hover {
-    background-color: #7cc78d;
-}
-
-button.turn:hover {
-    background-color: #eaeaea;
+    color: rgb(255, 255, 255); 
+    background: rgb(0, 0, 0); 
 }
 
 ul {
@@ -70,7 +65,7 @@ ul li:hover a {
   background: rgb(0, 0, 0); 
 } 
 
-canvas {
+.canvas {
     display: block;
     margin: 10px auto;
 }

@@ -7,12 +7,38 @@
   } 
 
 body { 
-  background-color: #222;
   display: flex; 
   justify-content: center; 
   align-items: center; 
   min-height: 100vh; 
   overflow: hidden; 
+}
+
+input {
+    outline: none;
+    font-size: 1.0rem;
+    padding: 0 5px;
+}
+
+button {
+  background-color: white;
+  color: #333; 
+  text-decoration: none; 
+  font-size: 3em; 
+  padding: 5px 20px; 
+  display: inline-flex; 
+  font-weight: 700; 
+  transition: 0.5s; 
+
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  color: rgb(255, 255, 255); 
+  background: rgb(0, 0, 0); 
 }
 
 ul {
@@ -25,7 +51,7 @@ ul li {
 } 
 
 ul li a { 
-  color: #e6e6e6;
+  color: #333; 
   text-decoration: none; 
   font-size: 3em; 
   padding: 5px 20px; 
@@ -35,12 +61,16 @@ ul li a {
 } 
 
 ul:hover li a { 
-  color: gray;
+  color: #8a8a8ad0; 
+}
+
+ul:hover li button { 
+  color: #8a8a8ad0; 
 } 
 
 ul li:hover a { 
-  color: #000000; 
-  background: rgb(231, 231, 231); 
+  color: rgb(255, 255, 255); 
+  background: rgb(0, 0, 0); 
 } 
 
 canvas {
@@ -51,195 +81,68 @@ canvas {
 .main-title{
   font-size: 150px;
   font-family: 'Poppins', sans-serif;
-  top: 8px;
-  color: white;
+  text-align: center;
 }
 
-.light{
-  background-color: rgb(255, 255, 255);
-  color: #000000;
+.dark{
+  background-color: #222;
+  color: #e6e6e6;
 }
 
-.light ul li a{
-  color: rgb(58, 58, 58); 
+.dark ul li a{
+  color: #e6e6e6;
 }
 
-.light ul li:hover a { 
-  color: rgb(255, 255, 255); 
-  background: rgb(0, 0, 0); 
+.dark ul li:hover a { 
+  color: #000000; 
+  background: rgb(231, 231, 231); 
 }
 
-.light .ul:hover li a{
-  color: #8a8a8ad0; 
+.dark .ul:hover li a{
+  color: gray;
 }
-
-ul:hover li a { 
-  color: #8a8a8ad0; 
-} 
-
-ul li:hover a { 
-  color: rgb(0, 0, 0); 
-  background: rgb(255, 255, 255); 
-} 
 
 .mode-button{
-  position: fixed;
-  top: 13px;
+  position: absolute;
+  top: 8px;
+  right: 13px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  background-color: #000;
+  border-radius: 15px;
+  width: 120px;  
+}
+
+.mode-button::before{
+  content: "Dark";
+}
+
+.mode-button:hover{
+  transition: 150ms;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.726);
+}
+.light-button:hover {
+  transition: 150ms;
+  color: rgb(0, 0, 0);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.726);
+}
+
+.light-button{
+  position: absolute;
+  top: 8px;
   right: 13px;
   font-size: 18px;
   text-align: center;
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
   border-radius: 15px;
-  width: 120px;  
-}
-
-.mode-button::before{
-  font-size: 20px;
-  content: "Light";
-}
-
-.mode-button:hover{
-  transition: 150ms;
-  color: rgb(0, 0, 0);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.726);
-}
-
-.dark-button{
-  position: fixed;
-  top: 13px;
-  right: 13px;
-  font-size: 18px;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 0, 0);
-  border-radius: 15px blue;
   width: 120px; 
 }
 
-.dark-button::before{
-  font-size: 21px;
-  content: "Dark";
-}
-
-.dark-button:hover {
-  transition: 150ms;
-  color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.726);
-}
-
-input {
-  outline: none;
-  font-size: 1.0rem;
-  padding: 0 5px;
-}
-
-button {
-  background-color: #20af41;
-  color: white;
-  border: none;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
-
-  font-size: 0.8rem;
-  line-height: 25px;
-  cursor: pointer;
-  outline: none;
-  transition: all 150ms ease-in;
-}
-
-button:hover {
-  background-color: #7cc78d;
-}
-
-button.turn:hover {
-  background-color: #eaeaea;
-}
-
-.chat-wrapper {
-    position: absolute;
-    width: 400px;
-    bottom: 10px;
-    left: 10px;
-    background-color: white;
-    border: 1px solid rgb(0, 0, 0);
-}
-
-.form-wrapper {
-    padding-bottom: 5px;
-}
-
-.form-wrapper form {
-    display: flex;
-}
-
-.form-wrapper form input {
-    font-size: 1.0rem;
-    flex-grow: 1;
-    border: 0px;
-}
-
-.form-wrapper form button {
-    width: 80px;
-}
-
-#messages {
-    height: 200px;
-}
-
-ul.messages li{
-    color: rgb(0, 0, 0);
-    text-align: left;
-    padding-left: 5px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-input {
-  outline: none;
-  font-size: 1.0rem;
-  padding: 0 5px;
-}
-
-button {
-  background-color: #20af41;
-  color: white;
-  border: none;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
-
-  font-size: 0.8rem;
-  line-height: 25px;
-  cursor: pointer;
-  outline: none;
-  transition: all 150ms ease-in;
-}
-
-button:hover {
-  background-color: #7cc78d;
-}
-
-button.turn:hover {
-  background-color: #eaeaea;
+.light-button::before{
+  content: "Light";
 }
 
 .chat-wrapper {

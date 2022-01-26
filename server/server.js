@@ -1,8 +1,7 @@
-const { text } = require('express');
 const express = require('express');
 const app = express();
-const http = require('http');
 
+const http = require('http');
 const server = http.createServer(app);
 
 const { Server } = require("socket.io");
@@ -10,10 +9,41 @@ const io = new Server(server);
 
 app.use(express.static(`${__dirname}/../public`));
 
-io.on('connection', (socket) => {
-    // socket.emit('message', 'You are connected');
+const state = {};
+const clientRooms = {};
 
-    socket.on('message', (text) => io.emit('message', text));
+io.on('connection', client => {
+
+    client.on('newGame', handleNewGame);
+    client.on('joinGame', handleJoinGame);
+
+    function handleNewGame() {
+        let roomID = makeid(5);
+        clientRooms[client.id] = roomID;
+        client.emit('gameCode', roomID);
+
+        state[roomID] = createGameState();
+
+        client.join(roomID);
+        client.number = 1;
+        client.emit('init', 1);
+    }
+
+    function handleJoinGame(gameCode) {
+        const room = io.sockets.adapter.rooms[gameCode];
+
+        let allPlayers;
+        let numPlayers = 0;
+        if (room) {
+            allPlayers = room.sockets;
+            numPlayers = Object.keys(allPlayers).length;
+        }
+
+        if (numPlayers === 0) {
+            client.emit('gameNotFound');
+            return;
+        }
+    }
 });
 
 server.on('error', (err) => {

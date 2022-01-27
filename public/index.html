@@ -20,16 +20,26 @@
 
         <div class="room-form-container" style="display: none;">
             <button class="standalone-button" id="back-button">RETURN</button>
-            <form action="" class="room-form" method="get">
-                <button class="standalone-button" id="create-button">Create a room</button>
+            <form action="#" class="room-form" method="get">
+                <button class="standalone-button" id="create-button" type="button">Create a room</button>
                 <h2>or</h2>
                 <div class="room-code-container">
                     <h1>Join an existing room</h1>
-                    <input type="text" id="room-code" name="room-code" placeholder="Room Code">
+                    <input type="text" id="room-code" placeholder="Room Code">
+                    <button type="button" id="join-button">Join</button>
                 </div>
             </form>
         </div>
 
-        <script src="index.js"></script>
+        <div class="lobby-container" style="display: none;">
+            <div class="player-stack">
+                <ul class="player-list">
+                    
+                </ul>
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/client.js"></script>
     </body>
 </html>

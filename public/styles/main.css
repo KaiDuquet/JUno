@@ -76,6 +76,15 @@ body {
   font-size: 2.0rem;
 }
 
+#join-button {
+  font-size: 1.4rem;
+  padding: 10px 10px 10px 10px;
+  background: #bbb;
+  border: 0 none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
 .room-code-container {
   margin: 20px auto;
 }
@@ -92,10 +101,20 @@ body {
 }
 
 .room-form input[type=submit] {
-  padding:5px 15px; 
-  background:#ccc; 
-  border:0 none;
-  cursor:pointer;
-  -webkit-border-radius: 5px;
-  border-radius: 5px; 
+  font-size: 1.5rem;
+  padding: 10px 10px 10px 10px;
+  background: #ccc;
+  border: 0 none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* Lobby CSS */
+
+ul.player-list {
+  
+}
+
+ul.player-list li {
+  
 }

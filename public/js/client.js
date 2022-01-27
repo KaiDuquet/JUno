@@ -24,9 +24,9 @@ tutorialButton.addEventListener("mouseleave", e => {
     playButton.style.opacity = 0.8;
 });
 
-playButton.onclick = onPlayClicked;
-tutorialButton.onclick = onHowToPlayClicked;
-backButton.onclick = onBackClicked;
+playButton.addEventListener('click', onPlayClicked);
+tutorialButton.addEventListener('click', onHowToPlayClicked);
+backButton.addEventListener('click', onBackClicked);
 
 function onPlayClicked() {
     if (!displayStack.length) {
@@ -58,11 +58,12 @@ function transition(oldDisplay, newDisplay) {
 
 const createGameButton = document.getElementById("create-button");
 const joinGameButton = document.getElementById("join-button");
-createGameButton.onclick = onCreateGameClicked;
-joinGameButton.onclick = onJoinGameClicked;
+createGameButton.addEventListener('click', onCreateGameClicked);
+joinGameButton.addEventListener('click', onJoinGameClicked);
+
+const lobbyDisplay = document.querySelector(".lobby-container");
 
 function onCreateGameClicked() {
-    const lobbyDisplay = document.querySelector(".lobby-container");
     displayStack.push(lobbyDisplay);
     transition(displayStack[1], lobbyDisplay);
     
@@ -83,42 +84,47 @@ function onJoinGameClicked() {
 socket.on('playerJoined', handlePlayerJoined);
 socket.on('gameCode', displayGameCode);
 socket.on('joinSuccess', onJoinSuccess);
+socket.on('playerLeft', handlePlayerLeft);
 
-socket.on('gameNotFound', handleGameNotFound);
-socket.on('roomAlreadyFull', handleRoomFull);
+const playerList = {}
+const listElement = document.querySelector(".player-list");
 
 function onJoinSuccess(players) {
-    const lobbyDisplay = document.querySelector(".lobby-container");
     displayStack.push(lobbyDisplay);
     transition(displayStack[1], lobbyDisplay);
     
-    const playerList = document.querySelector(".player-list");
-    for (let player of players) {
+    for (let player of Object.keys(players)) {
         let newPlayerLabel = document.createElement('li');
-        newPlayerLabel.appendChild(document.createTextNode('Player ' + player.playerID));
-        playerList.appendChild(newPlayerLabel);
+        newPlayerLabel.appendChild(document.createTextNode('Player ' + players[player].playerID));
+        listElement.appendChild(newPlayerLabel);
+        playerList[players[player].playerID] = [players[player], newPlayerLabel];
     }
 }
 
 function handlePlayerJoined(player) {
-    console.log(player);
-    const playerList = document.querySelector(".player-list");
     let newPlayerLabel = document.createElement('li');
     newPlayerLabel.appendChild(document.createTextNode('Player ' + player.playerID));
-    playerList.appendChild(newPlayerLabel);
+    listElement.appendChild(newPlayerLabel);
+    playerList[player.playerID] = [player, newPlayerLabel];
+}
+
+function handlePlayerLeft(player) {
+    console.log(player);
+    playerList[player.playerID][1].parentNode.removeChild(playerList[player.playerID][1]);
+    delete playerList[player.playerID];
 }
 
 function displayGameCode(gameCode) {
-    const lobbyContainer = document.querySelector(".lobby-container");
     let gameCodeLabel = document.createElement('h1');
     gameCodeLabel.appendChild(document.createTextNode('Game Code: ' + gameCode));
-    lobbyContainer.appendChild(gameCodeLabel);
+    lobbyDisplay.appendChild(gameCodeLabel);
 }
 
-function handleGameNotFound(gameCode) {
+// Room errors
+
+socket.on('gameNotFound', gameCode => {
     alert(`Room ${gameCode} does not exist`);
-}
-
-function handleRoomFull(gameCode) {
+});
+socket.on('roomAlreadyFull', gameCode => {
     alert(`Room ${gameCode} is already full`);
-}
+});

@@ -16,8 +16,11 @@ const MAX_PLAYERS = 6;
 
 io.on('connection', client => {
 
+    console.log(io.sockets.adapter.rooms);
+
     client.on('createGame', handleCreateGame);
     client.on('joinGame', handleJoinGame);
+    client.on('disconnect', handleDisconnect);
 
     function handleCreateGame() {
         let roomID = genID(6);
@@ -29,7 +32,7 @@ io.on('connection', client => {
         }
 
         state[roomID] = createBlankState();
-        state[roomID].safe.players.push(player);
+        state[roomID].safe.players[client.id] = player;
 
         client.join(roomID);
         client.emit('joinSuccess', state[roomID].safe.players);
@@ -59,11 +62,21 @@ io.on('connection', client => {
             playerID: numClients + 1,
         }
 
-        state[roomID].safe.players.push(player);
+        state[roomID].safe.players[client.id] = player;
 
         client.join(roomID);
         client.emit('joinSuccess', state[roomID].safe.players);
         client.broadcast.emit('playerJoined', player);
+    }
+
+    function handleDisconnect(reason) {
+        const roomID = clientRooms[client.id];
+        if (roomID) {
+            io.emit('playerLeft', state[roomID].safe.players[client.id]);
+            delete state[roomID].safe.players[client.id]
+            delete clientRooms[client.id]
+            console.log(io.sockets.adapter.rooms)
+        }
     }
 });
 
@@ -78,9 +91,9 @@ server.listen(9090, () => {
 function createBlankState() {
     const state = {
         safe: {
-            players: [
+            players: {
                 
-            ],
+            },
             topCard: {
 
             }

@@ -21,6 +21,7 @@ io.on('connection', client => {
     client.on('createGame', handleCreateGame);
     client.on('joinGame', handleJoinGame);
     client.on('disconnect', handleDisconnect);
+    client.on('startGame', handleStartGame);
 
     function handleCreateGame() {
         let roomID = genID(6);
@@ -33,9 +34,12 @@ io.on('connection', client => {
 
         state[roomID] = createBlankState();
         state[roomID].safe.players[client.id] = player;
+        state[roomID].partyLeader = client.id;
+        state[roomID].numPlayers = 1;
 
         client.join(roomID);
         client.emit('joinSuccess', state[roomID].safe.players);
+        client.emit('giveStartAuth')
     }
 
     function handleJoinGame(roomID) {
@@ -63,6 +67,7 @@ io.on('connection', client => {
         }
 
         state[roomID].safe.players[client.id] = player;
+        state[roomID].numPlayers++;
 
         client.join(roomID);
         client.emit('joinSuccess', state[roomID].safe.players);
@@ -73,9 +78,23 @@ io.on('connection', client => {
         const roomID = clientRooms[client.id];
         if (roomID) {
             io.emit('playerLeft', state[roomID].safe.players[client.id]);
-            delete state[roomID].safe.players[client.id]
-            delete clientRooms[client.id]
-            console.log(io.sockets.adapter.rooms)
+            state[roomID].numPlayers--;
+            delete state[roomID].safe.players[client.id];
+            delete clientRooms[client.id];
+            console.log(io.sockets.adapter.rooms);
+        }
+    }
+
+    function handleStartGame() {
+        const roomID = clientRooms[client.id];
+        if (state[roomID].partyLeader === client.id) {
+            console.log("Starting game...");
+            startCardGame(state[roomID])
+
+            io.emit('gameStarted');
+        }
+        else {
+            console.log("Not authorized to start a game");
         }
     }
 });
@@ -93,17 +112,8 @@ function createBlankState() {
         safe: {
             players: {
                 
-            },
-            topCard: {
-
             }
-        },
-        playerHands: [
-
-        ],
-        deck: [
-
-        ]
+        }
     }
     return state;
 }
@@ -132,39 +142,48 @@ const N5 = 5; const N6 = 6; const N7 = 7; const N8 = 8; const N9 = 9;
 
 const PLUS_2 = 10; const REVERSE = 11; const SKIP = 12; const CHOOSE = 13; const PLUS_4 = 14;
 
-class Deck {
-
-    constructor(deck = createDeck()) {
-        this.deck = deck;
+function shuffleDeck(deck) {
+    for (let i = 1; i < deck.length; i++) {
+        const newIndex = Math.floor(Math.random() * (i + 1));
+        const swappedCard = deck[newIndex];
+        deck[newIndex] = deck[i];
+        deck[i] = swappedCard;
     }
-
-    shuffle() {
-        for (let i = 1; i < deck.length; i++) {
-            const newIndex = Math.floor(Math.random() * (i + 1));
-            const swappedCard = deck[newIndex];
-            deck[newIndex] = deck[i];
-            deck[i] = swappedCard;
-        }
-    }
-
-    getRawObj() {
-        return this.deck;
-    }
+    return deck;
 }
 
 function createDeck() {
     let deck = []
     for (let color = RED; color <= GREEN; color++) {
-        deck.push({color: color, type: N0});
+        deck.push({ color: color, type: N0 });
 
         for (let type = N1; type <= SKIP; type++) {
-            deck.push({color: color, type: type});
-            deck.push({color: color, type: type});
+            deck.push({ color: color, type: type });
+            deck.push({ color: color, type: type });
         }
 
-        deck.push({color: WILD, type: CHOOSE});
-        deck.push({color: WILD, type: PLUS_4});
+        deck.push({ color: WILD, type: CHOOSE });
+        deck.push({ color: WILD, type: PLUS_4 });
     }
 
     return deck;
+}
+
+function startCardGame(roomState) {
+    roomState.deck = shuffleDeck(createDeck());
+    roomState.safe.topCard = roomState.deck[roomState.deck.length - 1];
+
+    roomState.playerHands = {};
+    
+    for (let player of Object.keys(roomState.safe.players)) {
+        for (let i = 0; i < 7; i++) {
+            const hand = roomState.deck.splice(-7)
+            roomState.playerHands[player] = hand;
+        }
+    }
+
+    for (let playerID of Object.keys(roomState.playerHands)) {
+        console.log(playerID);
+        console.log(roomState.playerHands[playerID]);
+    }
 }

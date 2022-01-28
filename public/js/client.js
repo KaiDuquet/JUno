@@ -6,6 +6,8 @@ const socket = io();
 
 const displayStack = []
 
+// Main Menu buttons
+
 playButton.addEventListener("mouseenter", e => {
     tutorialButton.style.opacity = 0.5;
     playButton.style.opacity = 1;
@@ -24,11 +26,7 @@ tutorialButton.addEventListener("mouseleave", e => {
     playButton.style.opacity = 0.8;
 });
 
-playButton.addEventListener('click', onPlayClicked);
-tutorialButton.addEventListener('click', onHowToPlayClicked);
-backButton.addEventListener('click', onBackClicked);
-
-function onPlayClicked() {
+playButton.addEventListener('click', e => {
     if (!displayStack.length) {
         const mainMenu = document.getElementById("main-menu");
         displayStack.push(mainMenu);
@@ -37,16 +35,16 @@ function onPlayClicked() {
     
     displayStack.push(roomForm);
     transition(displayStack[0], roomForm);
-}
+});
 
-function onHowToPlayClicked() {
-    alert("Tutorial coming soon");
-}
+tutorialButton.addEventListener('click', e => {
+    alert("Tutorial coming soon")
+});
 
-function onBackClicked() {
+backButton.addEventListener('click', e => {
     const current = displayStack.pop();
     transition(current, displayStack[0]);
-}
+});
 
 function transition(oldDisplay, newDisplay) {
     oldDisplay.setAttribute("style", "display: none;");
@@ -58,26 +56,29 @@ function transition(oldDisplay, newDisplay) {
 
 const createGameButton = document.getElementById("create-button");
 const joinGameButton = document.getElementById("join-button");
-createGameButton.addEventListener('click', onCreateGameClicked);
-joinGameButton.addEventListener('click', onJoinGameClicked);
+const startGameButton = document.getElementById("start-button");
 
 const lobbyDisplay = document.querySelector(".lobby-container");
 
-function onCreateGameClicked() {
+createGameButton.addEventListener('click', e => {
     displayStack.push(lobbyDisplay);
     transition(displayStack[1], lobbyDisplay);
     
     socket.emit('createGame');
-}
+});
 
-function onJoinGameClicked() {
+joinGameButton.addEventListener('click', e => {
     const gameCodeInput = document.getElementById('room-code').value;
     if (!(/^[a-z0-9]{6}$/i.test(gameCodeInput))) {
         document.getElementById('room-code').value = "Invalid Game Code";
         return false;
     }
     socket.emit('joinGame', gameCodeInput);
-}
+});
+
+startGameButton.addEventListener('click', e => {
+    socket.emit('startGame');
+});
 
 // ----- SOCKET.IO RELATED CODE -----
 
@@ -85,6 +86,11 @@ socket.on('playerJoined', handlePlayerJoined);
 socket.on('gameCode', displayGameCode);
 socket.on('joinSuccess', onJoinSuccess);
 socket.on('playerLeft', handlePlayerLeft);
+
+socket.on('giveStartAuth', () => {
+    startGameButton.classList.remove('disabled');
+    startGameButton.disabled = false;
+});
 
 const playerList = {}
 const listElement = document.querySelector(".player-list");
@@ -117,7 +123,7 @@ function handlePlayerLeft(player) {
 function displayGameCode(gameCode) {
     let gameCodeLabel = document.createElement('h1');
     gameCodeLabel.appendChild(document.createTextNode('Game Code: ' + gameCode));
-    lobbyDisplay.appendChild(gameCodeLabel);
+    document.querySelector(".game-code-container").appendChild(gameCodeLabel);
 }
 
 // Room errors
@@ -128,3 +134,16 @@ socket.on('gameNotFound', gameCode => {
 socket.on('roomAlreadyFull', gameCode => {
     alert(`Room ${gameCode} is already full`);
 });
+
+// Game code
+
+let canvas, ctx;
+
+socket.on('gameStarted', () => {
+    canvas = document.getElementById('game-canvas');
+    ctx = canvas.getContext('2d');
+});
+
+function onPlayTurn(state) {
+
+}

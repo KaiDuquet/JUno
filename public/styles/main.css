@@ -109,12 +109,13 @@ body {
   border-radius: 6px;
 }
 
-/* Lobby CSS */
-
-ul.player-list {
-  
+.disabled {
+  pointer-events: none;
+  opacity: 0.3;
 }
 
-ul.player-list li {
-  
+
+
+.game-root.game-canvas {
+  background-color: black;
 }

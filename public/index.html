@@ -32,11 +32,19 @@
         </div>
 
         <div class="lobby-container" style="display: none;">
+            <div class="game-code-container"></div>
             <div class="player-stack">
                 <ul class="player-list">
                     
                 </ul>
             </div>
+            <button disabled class="standalone-button disabled" id="start-button">Start Game</button>
+        </div>
+
+        <div class="game-root" style="display: none;">
+            <canvas id="game-canvas">
+
+            </canvas>
         </div>
 
         <script src="/socket.io/socket.io.js"></script>

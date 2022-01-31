@@ -102,25 +102,25 @@ const listElement = document.querySelector(".player-list");
 function onJoinSuccess(players) {
     transition(lobbyDisplay);
     
-    for (let player of Object.keys(players)) {
+    for (let player of players) {
         let newPlayerLabel = document.createElement('li');
-        newPlayerLabel.appendChild(document.createTextNode('Player ' + players[player].playerID));
+        newPlayerLabel.appendChild(document.createTextNode('Player ' + player.id));
         listElement.appendChild(newPlayerLabel);
-        playerList[players[player].playerID] = [players[player], newPlayerLabel];
+        playerList[player.id] = [player, newPlayerLabel];
     }
 }
 
 function handlePlayerJoined(player) {
     let newPlayerLabel = document.createElement('li');
-    newPlayerLabel.appendChild(document.createTextNode('Player ' + player.playerID));
+    newPlayerLabel.appendChild(document.createTextNode('Player ' + player.id));
     listElement.appendChild(newPlayerLabel);
-    playerList[player.playerID] = [player, newPlayerLabel];
+    playerList[player.id] = [player, newPlayerLabel];
 }
 
 function handlePlayerLeft(player) {
     console.log(player);
-    playerList[player.playerID][1].parentNode.removeChild(playerList[player.playerID][1]);
-    delete playerList[player.playerID];
+    playerList[player.id][1].parentNode.removeChild(playerList[player.id][1]);
+    delete playerList[player.id];
 }
 
 function displayGameCode(gameCode) {
@@ -137,13 +137,118 @@ socket.on('gameNotFound', gameCode => {
 socket.on('roomAlreadyFull', gameCode => {
     alert(`Room ${gameCode} is already full`);
 });
-
-// Game code
-
-socket.on('gameStarted', () => {
-    transition(document.querySelector('.game-root'));
+socket.on('gameAlreadyStarted', gameCode => {
+    alert(`Room ${gameCode} has already started`);
 });
 
-function onPlayTurn(state) {
+// Game code
+const renderer = PIXI.autoDetectRenderer({width: window.innerWidth, height: window.innerHeight});
+renderer.backgroundColor = 0xFFFFFF;
+const loader = PIXI.Loader.shared;
+document.querySelector('.game-root').appendChild(renderer.view);
 
+/*for (let i = 0; i < 10; i++) {
+    loader.add(`0-${i}`, `../img/red/r${i}.png`);
 }
+for (let i = 0; i < 10; i++) {
+    loader.add(`1-${i}`, `../img/yellow/y${i}.png`);
+}
+for (let i = 0; i < 10; i++) {
+    loader.add(`2-${i}`, `../img/blue/b${i}.png`);
+}
+for (let i = 0; i < 10; i++) {
+    loader.add(`3-${i}`, `../img/green/g${i}.png`);
+}
+
+loader
+    /*.add('back', '../img/back.png')
+    .add('4-13', '../img/special/change.png')
+    .add('4-14', '../img/special/plus4.png')
+
+    .add('0-10', '../img/red/r22.png')
+    .add('1-10', '../img/yellow/y22.png')
+    .add('2-10', '../img/blue/b22.png')
+    .add('3-10', '../img/green/g22.png')
+
+    .add('0-11', '../img/red/rr.png')
+    .add('1-11', '../img/yellow/yr.png')
+    .add('2-11', '../img/blue/br.png')
+    .add('3-11', '../img/green/gr.png')
+
+    .add('0-12', '../img/red/rd.png')
+    .add('1-12', '../img/yellow/yd.png')
+    .add('2-12', '../img/blue/bd.png')
+    .add('3-12', '../img/green/gd.png').load();*/
+loader
+    .add('1-6', '../img/test/t1.png')
+    .add('0-2', '../img/test/t3.png')
+    .add('0-10', '../img/test/t4.png')
+    .add('3-10', '../img/test/t5.png')
+
+    .add('2-0', '../img/test/t6.png')
+    .add('2-9', '../img/test/t7.png')
+    .add('1-4', '../img/test/t2.png')
+    .add('4-14', '../img/test/t8.png').load();
+
+
+/*const cardSpriteMap = {};
+function setup(loader, resources) {
+    for (let i = 0; i < 10; i++) {
+        cardSpriteMap[`0-${i}`] = new PIXI.Sprite(resources[`r${i}`].texture);
+    }
+    for (let i = 0; i < 10; i++) {
+        cardSpriteMap[`1-${i}`] = new PIXI.Sprite(resources[`y${i}`].texture);
+    }
+    for (let i = 0; i < 10; i++) {
+        cardSpriteMap[`2-${i}`] = new PIXI.Sprite(resources[`b${i}`].texture);
+    }
+    for (let i = 0; i < 10; i++) {
+        cardSpriteMap[`3-${i}`] = new PIXI.Sprite(resources[`g${i}`].texture);
+    }
+
+    cardSpriteMap['0-10'] = new PIXI.Sprite(resources['r22'].texture);
+    cardSpriteMap['1-10'] = new PIXI.Sprite(resources['y22'].texture);
+    cardSpriteMap['2-10'] = new PIXI.Sprite(resources['b22'].texture);
+    cardSpriteMap['3-10'] = new PIXI.Sprite(resources['g22'].texture);
+    
+    cardSpriteMap['0-11'] = new PIXI.Sprite(resources['rr'].texture);
+    cardSpriteMap['1-11'] = new PIXI.Sprite(resources['yr'].texture);
+    cardSpriteMap['2-11'] = new PIXI.Sprite(resources['br'].texture);
+    cardSpriteMap['3-11'] = new PIXI.Sprite(resources['gr'].texture);
+    
+    cardSpriteMap['0-12'] = new PIXI.Sprite(resources['rd'].texture);
+    cardSpriteMap['1-12'] = new PIXI.Sprite(resources['yd'].texture);
+    cardSpriteMap['2-12'] = new PIXI.Sprite(resources['bd'].texture);
+    cardSpriteMap['3-12'] = new PIXI.Sprite(resources['gd'].texture);
+    
+    cardSpriteMap['back'] = new PIXI.Sprite(resources['back'].texture);
+    cardSpriteMap['4-13'] = new PIXI.Sprite(resources['change'].texture);
+    cardSpriteMap['4-14'] = new PIXI.Sprite(resources['plus4'].texture);
+}*/
+
+const stage = new PIXI.Container();
+
+socket.on('gameStarted', (hand, gameState) => {
+    transition(document.querySelector('.game-root'));
+
+    for (let i = 0; i < hand.length; i++) {
+        const card = hand[i];
+        const sprite = new PIXI.Sprite(loader.resources[`${card.color}-${card.type}`].texture);
+        sprite.anchor.set(0.5, 0.5);
+        sprite.scale.set(0.25, 0.25);
+        sprite.position.x = innerWidth / 2 + (i - hand.length / 2) * 50;
+        sprite.position.y = innerHeight - 250;
+        stage.addChild(sprite);
+    }
+
+    renderer.render(stage);
+});
+
+socket.on('onOtherPlayerTurn', currPlayer => {
+    console.log(currPlayer);
+});
+
+socket.on('onPlayTurn', (hand, gameState) => {
+    console.log(gameState.topCard);
+    console.log(hand);
+});

@@ -113,9 +113,3 @@ body {
   pointer-events: none;
   opacity: 0.3;
 }
-
-
-
-.game-root.game-canvas {
-  background-color: black;
-}

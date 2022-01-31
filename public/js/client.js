@@ -33,8 +33,7 @@ playButton.addEventListener('click', e => {
     }
     const roomForm = document.querySelector(".room-form-container");
     
-    displayStack.push(roomForm);
-    transition(displayStack[0], roomForm);
+    transition(roomForm);
 });
 
 tutorialButton.addEventListener('click', e => {
@@ -42,13 +41,19 @@ tutorialButton.addEventListener('click', e => {
 });
 
 backButton.addEventListener('click', e => {
-    const current = displayStack.pop();
-    transition(current, displayStack[0]);
+    transition('');
 });
 
-function transition(oldDisplay, newDisplay) {
-    oldDisplay.setAttribute("style", "display: none;");
-    newDisplay.setAttribute("style", "display: block;");
+function transition(display) {
+    if (display === "") {
+        displayStack.pop().setAttribute("style", "display: none;");
+        displayStack[displayStack.length - 1].setAttribute("style", "display: block;");
+    }
+    else {
+        displayStack.push(display);
+        displayStack[displayStack.length - 2].setAttribute("style", "display: none;");
+        display.setAttribute("style", "display: block;");
+    }
 }
 
 
@@ -61,8 +66,7 @@ const startGameButton = document.getElementById("start-button");
 const lobbyDisplay = document.querySelector(".lobby-container");
 
 createGameButton.addEventListener('click', e => {
-    displayStack.push(lobbyDisplay);
-    transition(displayStack[1], lobbyDisplay);
+    transition(lobbyDisplay);
     
     socket.emit('createGame');
 });
@@ -96,8 +100,7 @@ const playerList = {}
 const listElement = document.querySelector(".player-list");
 
 function onJoinSuccess(players) {
-    displayStack.push(lobbyDisplay);
-    transition(displayStack[1], lobbyDisplay);
+    transition(lobbyDisplay);
     
     for (let player of Object.keys(players)) {
         let newPlayerLabel = document.createElement('li');
@@ -137,11 +140,8 @@ socket.on('roomAlreadyFull', gameCode => {
 
 // Game code
 
-let canvas, ctx;
-
 socket.on('gameStarted', () => {
-    canvas = document.getElementById('game-canvas');
-    ctx = canvas.getContext('2d');
+    transition(document.querySelector('.game-root'));
 });
 
 function onPlayTurn(state) {
